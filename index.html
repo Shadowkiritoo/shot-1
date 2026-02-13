@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Bunny 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:"Pixelify Sans",sans-serif;
+  background:linear-gradient(135deg,#2e003e,#6a0dad,#c77dff,#ffc8dd);
+  background-size:400% 400%;
+  animation:bgMove 18s ease infinite;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#4b0082;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* sparkles */
+.sparkles{
+  position:fixed;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  background-image:radial-gradient(white 1px,transparent 1px);
+  background-size:40px 40px;
+  opacity:.15;
+  animation:sparkleMove 20s linear infinite;
+}
+@keyframes sparkleMove{
+  from{background-position:0 0}
+  to{background-position:200px 200px}
+}
+
+/* card */
+.card{
+  background:rgba(255,255,255,.95);
+  padding:40px;
+  width:90%;
+  max-width:500px;
+  border-radius:30px;
+  box-shadow:0 25px 50px rgba(0,0,0,.2),
+             0 0 40px rgba(199,125,255,.4);
+  text-align:center;
+  position:relative;
+  backdrop-filter:blur(8px);
+}
+
+/* text */
+#text{
+  font-size:22px;
+  min-height:120px;
+  margin-bottom:20px;
+}
+
+/* button */
+button{
+  border:none;
+  padding:14px 35px;
+  border-radius:40px;
+  font-size:20px;
+  cursor:pointer;
+  margin:10px;
+  transition:.3s;
+}
+
+.yes{
+  background:linear-gradient(135deg,#ff8fab,#c77dff);
+  color:white;
+  box-shadow:0 10px 30px rgba(199,125,255,.4);
+}
+.yes:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 25px #ff8fab;
+}
+
+.no{
+  background:#eee;
+  color:#777;
+}
+
+/* bunny */
+.bunny{
+  width:120px;
+  height:120px;
+  margin:0 auto 20px;
+  position:relative;
+  animation:hop 1.5s ease-in-out infinite;
+}
+@keyframes hop{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+}
+
+.head{
+  width:70px;
+  height:65px;
+  background:#ffd6e8;
+  border-radius:50%;
+  position:absolute;
+  top:20px;
+  left:25px;
+}
+
+.body{
+  width:75px;
+  height:70px;
+  background:#ffd6e8;
+  border-radius:50%;
+  position:absolute;
+  bottom:0;
+  left:22px;
+}
+
+.ear{
+  width:18px;
+  height:50px;
+  background:#ffd6e8;
+  border-radius:50px;
+  position:absolute;
+  top:-20px;
+}
+.ear.left{left:10px;transform:rotate(-10deg)}
+.ear.right{right:10px;transform:rotate(10deg)}
+
+.eye{
+  width:8px;height:8px;background:#4b0082;
+  border-radius:50%;
+  position:absolute;
+  top:25px;
+}
+.eye.left{left:18px}
+.eye.right{right:18px}
+
+.blush{
+  width:12px;height:6px;background:#ff8fab;
+  border-radius:50%;
+  position:absolute;
+  top:35px;
+  opacity:.7;
+}
+.blush.left{left:8px}
+.blush.right{right:8px}
+
+.heart{
+  position:absolute;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:20px;
+  animation:heartBeat 1.2s infinite;
+}
+@keyframes heartBeat{
+  0%,100%{transform:translateX(-50%) scale(1)}
+  50%{transform:translateX(-50%) scale(1.3)}
+}
+
+/* success screen */
+#success{
+  display:none;
+  font-size:22px;
+  animation:fadeIn 1s ease forwards;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.8)}
+  to{opacity:1;transform:scale(1)}
+}
+
+</style>
+</head>
+<body>
+
+<div class="sparkles"></div>
+
+<div class="card">
+
+<div class="bunny">
+  <div class="ear left"></div>
+  <div class="ear right"></div>
+  <div class="head">
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+    <div class="blush left"></div>
+    <div class="blush right"></div>
+  </div>
+  <div class="body"></div>
+  <div class="heart">💜</div>
+</div>
+
+<div id="text"></div>
+
+<div id="buttons">
+  <button class="yes" onclick="sayYes()">YES 💜</button>
+  <button class="no" onmouseover="runAway(this)">No 🥺</button>
+</div>
+
+<div id="success">
+  You just made my heart explode with happiness 💜<br><br>
+  I promise to protect your smile,<br>
+  annoy you lovingly forever,<br>
+  and choose you every single day.<br><br>
+  Happy Valentine's Day, my sweet bunny 🐰💖
+</div>
+
+</div>
+
+<script>
+const lines=[
+"My sweet bunny...",
+"You are the most beautiful part of my world.",
+"Your smile melts my heart.",
+"Every moment with you feels magical.",
+"So I have something important to ask..."
+];
+
+let i=0;
+let j=0;
+let currentText="";
+const textDiv=document.getElementById("text");
+
+function type(){
+  if(i<lines.length){
+    if(j<lines[i].length){
+      currentText+=lines[i][j];
+      textDiv.innerHTML=currentText+"|";
+      j++;
+      setTimeout(type,40);
+    }else{
+      currentText+="<br><br>";
+      i++;
+      j=0;
+      setTimeout(type,600);
+    }
+  }else{
+    textDiv.innerHTML=currentText+"Will you be my Valentine? 💜";
+  }
+}
+type();
+
+function runAway(btn){
+  btn.style.position="absolute";
+  btn.style.left=Math.random()*80+"%";
+  btn.style.top=Math.random()*80+"%";
+}
+
+function sayYes(){
+  document.getElementById("buttons").style.display="none";
+  document.getElementById("success").style.display="block";
+}
+</script>
+
+</body>
+</html>
